@@ -3,6 +3,10 @@ module Types exposing (..)
 import Array exposing (Array)
 
 
+type Msg
+    = Noop
+
+
 {-| Represents the color of the player
 -}
 type ChessPlayerColor
