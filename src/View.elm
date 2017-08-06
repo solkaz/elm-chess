@@ -31,7 +31,7 @@ boardView board =
 
         -- Group the squares into rows of 8
     in
-        table [] (List.indexedMap boardRowView rows)
+        table [] (List.reverse (List.indexedMap boardRowView rows))
 
 
 boardRowView : Int -> List Types.ChessBoardSquare -> Html Types.Msg
@@ -40,15 +40,15 @@ boardRowView rowNumber row =
         styles =
             style [ ( "height", "50px" ) ]
     in
-        tr [] (List.indexedMap (\x sq -> squareView (x + (1 + rowNumber % 2))) row)
+        tr [] (List.indexedMap (\x sq -> squareView (x + (rowNumber % 2)) sq) row)
 
 
-squareView : Int -> Html Msg
-squareView squareIndex =
+squareView : Int -> ChessBoardSquare -> Html Msg
+squareView squareIndex square =
     let
         color =
             if squareIndex % 2 == 0 then
-                "black"
+                "gray"
             else
                 "white"
 
@@ -57,6 +57,53 @@ squareView squareIndex =
                 [ ( "backgroundColor", color )
                 , ( "width", "50px" )
                 , ( "height", "50px" )
+                , ( "text-align", "center" )
+                , ( "font-size", "36px" )
                 ]
     in
-        td [ styles ] []
+        td [ styles ] [ pieceView square ]
+
+
+pieceView : ChessBoardSquare -> Html Msg
+pieceView square =
+    case square of
+        Empty ->
+            span [] []
+
+        Occupied { color, type_ } ->
+            case type_ of
+                Pawn ->
+                    if color == Black then
+                        span [] [ text "♟" ]
+                    else
+                        span [] [ text "♙" ]
+
+                Knight ->
+                    if color == Black then
+                        span [] [ text "♞" ]
+                    else
+                        span [] [ text "♘" ]
+
+                Rook ->
+                    if color == Black then
+                        span [] [ text "♜" ]
+                    else
+                        span [] [ text "♖" ]
+
+                Bishop ->
+                    if color == Black then
+                        span [] [ text "♝" ]
+                    else
+                        span [] [ text "♗" ]
+
+                Queen ->
+                    if color == Black then
+                        span [] [ text "♛" ]
+                    else
+                        span [] [ text "♕" ]
+
+                King ->
+                    if color == Black then
+                        span [] [ text "♚" ]
+                    else
+                        span [] [ text "♔" ]

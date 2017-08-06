@@ -12,7 +12,18 @@ type alias State =
 initialState : State
 initialState =
     { toMove = Types.White
-    , board = List.repeat 128 Types.Empty
+    , board =
+        List.concat
+            [ backRow Types.White
+            , emptyRow
+            , frontRow Types.White
+            , emptyRow
+            , List.concat (List.repeat 8 emptyRow)
+            , frontRow Types.Black
+            , emptyRow
+            , backRow Types.Black
+            , emptyRow
+            ]
     }
 
 
@@ -31,3 +42,30 @@ update msg state =
 subscriptions : State -> Sub Msg
 subscriptions state =
     Sub.none
+
+
+{-| Creates a row of pawns with the given color
+-}
+frontRow : Types.ChessPlayerColor -> List Types.ChessBoardSquare
+frontRow color =
+    List.repeat 8 (Types.Occupied { color = color, type_ = Types.Pawn })
+
+
+{-| Creates a row of major pieces with the given color
+-}
+backRow : Types.ChessPlayerColor -> List Types.ChessBoardSquare
+backRow color =
+    [ Types.Occupied { color = color, type_ = Types.Rook }
+    , Types.Occupied { color = color, type_ = Types.Knight }
+    , Types.Occupied { color = color, type_ = Types.Bishop }
+    , Types.Occupied { color = color, type_ = Types.Queen }
+    , Types.Occupied { color = color, type_ = Types.King }
+    , Types.Occupied { color = color, type_ = Types.Bishop }
+    , Types.Occupied { color = color, type_ = Types.Knight }
+    , Types.Occupied { color = color, type_ = Types.Rook }
+    ]
+
+
+emptyRow : List Types.ChessBoardSquare
+emptyRow =
+    List.repeat 8 Types.Empty
