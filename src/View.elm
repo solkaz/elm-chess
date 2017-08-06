@@ -21,7 +21,7 @@ boardView : Types.ChessBoard -> Html Types.Msg
 boardView board =
     let
         rows =
-            Array.toIndexedList board
+            List.indexedMap (,) board
                 |> List.partition (\x -> (Bitwise.and (first x) 136) == 0)
                 |> first
                 -- Take the list of valid squares

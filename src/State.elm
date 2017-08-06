@@ -1,6 +1,5 @@
 module State exposing (State, init, update, subscriptions)
 
-import Array exposing (Array)
 import Types exposing (ChessPlayerColor, ChessBoard, ChessBoardSquare, Msg)
 
 
@@ -13,7 +12,7 @@ type alias State =
 initialState : State
 initialState =
     { toMove = Types.White
-    , board = Array.repeat 128 Types.Empty
+    , board = List.repeat 128 Types.Empty
     }
 
 

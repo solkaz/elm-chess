@@ -1,7 +1,5 @@
 module Types exposing (..)
 
-import Array exposing (Array)
-
 
 type Msg
     = Noop
@@ -37,4 +35,4 @@ type ChessBoardSquare
 {-| Represents a chess board using the 0x88 method
 -}
 type alias ChessBoard =
-    Array ChessBoardSquare
+    List ChessBoardSquare
