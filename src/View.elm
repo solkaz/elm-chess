@@ -1,6 +1,5 @@
 module View exposing (view)
 
-import Array exposing (Array)
 import Bitwise
 import Html exposing (..)
 import Html.Attributes exposing (style)
