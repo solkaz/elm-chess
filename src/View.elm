@@ -3,6 +3,7 @@ module View exposing (view)
 import Bitwise
 import Html exposing (..)
 import Html.Attributes exposing (style)
+import Html.Events exposing (onClick)
 import List.Extra exposing (groupsOf)
 import Tuple exposing (first, second)
 import Types exposing (..)
@@ -70,39 +71,46 @@ pieceView square =
             span [] []
 
         Occupied { color, type_ } ->
-            case type_ of
-                Pawn ->
-                    if color == Black then
-                        span [] [ text "♟" ]
-                    else
-                        span [] [ text "♙" ]
+            let
+                styles =
+                    style
+                        [ ( "cursor", "pointer" )
+                        , ( "user-select", "none" )
+                        ]
+            in
+                case type_ of
+                    Pawn ->
+                        if color == Black then
+                            span [ styles ] [ text "♟" ]
+                        else
+                            span [ styles ] [ text "♙" ]
 
-                Knight ->
-                    if color == Black then
-                        span [] [ text "♞" ]
-                    else
-                        span [] [ text "♘" ]
+                    Knight ->
+                        if color == Black then
+                            span [ styles ] [ text "♞" ]
+                        else
+                            span [ styles ] [ text "♘" ]
 
-                Rook ->
-                    if color == Black then
-                        span [] [ text "♜" ]
-                    else
-                        span [] [ text "♖" ]
+                    Rook ->
+                        if color == Black then
+                            span [ styles ] [ text "♜" ]
+                        else
+                            span [ styles ] [ text "♖" ]
 
-                Bishop ->
-                    if color == Black then
-                        span [] [ text "♝" ]
-                    else
-                        span [] [ text "♗" ]
+                    Bishop ->
+                        if color == Black then
+                            span [ styles ] [ text "♝" ]
+                        else
+                            span [ styles ] [ text "♗" ]
 
-                Queen ->
-                    if color == Black then
-                        span [] [ text "♛" ]
-                    else
-                        span [] [ text "♕" ]
+                    Queen ->
+                        if color == Black then
+                            span [ styles ] [ text "♛" ]
+                        else
+                            span [ styles ] [ text "♕" ]
 
-                King ->
-                    if color == Black then
-                        span [] [ text "♚" ]
-                    else
-                        span [] [ text "♔" ]
+                    King ->
+                        if color == Black then
+                            span [ styles ] [ text "♚" ]
+                        else
+                            span [ styles ] [ text "♔" ]
